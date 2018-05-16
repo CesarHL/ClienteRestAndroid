@@ -15,111 +15,63 @@ public class Pago implements Serializable {
 
     private Integer id;
 
-    private Double cantidad;
+    private Integer userId;
 
-    private String folio;
+    private String title;
 
-    private String receptor;
-
-    private String emisor;
+    private String body;
 
     public Pago() {
         super();
     }
 
-    public Pago(Integer id, Double cantidad, String folio, String receptor, String emisor) {
+    public Pago(Integer id, Integer userId, String title, String body) {
         super();
-        this.id = id;
-        this.cantidad = cantidad;
-        this.folio = folio;
-        this.receptor = receptor;
-        this.emisor = emisor;
+        this.id = id;;
+        this.userId = userId;
+        this.title = title;
+        this.body = body;
     }
 
-    /**
-     * @return the id
-     */
     public Integer getId() {
         return id;
     }
 
-    /**
-     * @param id
-     *            the id to set
-     */
     public void setId(Integer id) {
         this.id = id;
     }
 
-    /**
-     * @return the cantidad
-     */
-    public Double getCantidad() {
-        return cantidad;
+    public Integer getUserId() {
+        return userId;
     }
 
-    /**
-     * @param cantidad
-     *            the cantidad to set
-     */
-    public void setCantidad(Double cantidad) {
-        this.cantidad = cantidad;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    /**
-     * @return the folio
-     */
-    public String getFolio() {
-        return folio;
+    public String getTitle() {
+        return title;
     }
 
-    /**
-     * @param folio
-     *            the folio to set
-     */
-    public void setFolio(String folio) {
-        this.folio = folio;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    /**
-     * @return the receptor
-     */
-    public String getReceptor() {
-        return receptor;
+    public String getBody() {
+        return body;
     }
 
-    /**
-     * @param receptor
-     *            the receptor to set
-     */
-    public void setReceptor(String receptor) {
-        this.receptor = receptor;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    /**
-     * @return the emisor
-     */
-    public String getEmisor() {
-        return emisor;
-    }
-
-    /**
-     * @param emisor
-     *            the emisor to set
-     */
-    public void setEmisor(String emisor) {
-        this.emisor = emisor;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
-        return "Pago [id=" + id + ", cantidad=" + cantidad + ", folio=" + folio + ", receptor=" + receptor + ", emisor="
-                + emisor + "]";
+        return "Pago{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", title='" + title + '\'' +
+                ", body='" + body + '\'' +
+                '}';
     }
-
 }
