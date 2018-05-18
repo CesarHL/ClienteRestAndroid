@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -18,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.erick.model.Example;
 import com.example.erick.model.Pago;
 import com.google.gson.Gson;
 
@@ -30,6 +32,7 @@ import java.util.List;
 
 public class RestService extends AppCompatActivity  {
 
+    private ListView list;
     RequestQueue requestQueue;
     TextView textViewService;
 
@@ -39,15 +42,9 @@ public class RestService extends AppCompatActivity  {
         setContentView(R.layout.activity_rest_service);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Button button = findViewById(R.id.button);
-        textViewService = findViewById(R.id.textView);
-
+        list = (ListView) findViewById(R.id.custom_list);
         requestQueue = Volley.newRequestQueue(this);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
                 consumirServicioDePagos();
-            }
-        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,8 +59,7 @@ public class RestService extends AppCompatActivity  {
     public void consumirServicioDePagos() {
         String BASE_URL = "https://jsonplaceholder.typicode.com/posts";
         final Gson gson = new Gson();
-        final List<Pago> listPago = new ArrayList<>();
-        final List<Integer> listIdPago = new ArrayList<>();
+        final List<Example> listPago = new ArrayList<>();
         JsonArrayRequest arrReq = new JsonArrayRequest(Request.Method.GET, BASE_URL,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -72,14 +68,14 @@ public class RestService extends AppCompatActivity  {
                             for (int i = 0; i < response.length(); i++) {
                                 try {
                                     JSONObject jsonObj = response.getJSONObject(i);
-                                    Pago pago = gson.fromJson(jsonObj.toString(), Pago.class);
+                                    Example pago = gson.fromJson(jsonObj.toString(), Example.class);
                                     listPago.add(pago);
-                                    textViewService.setText(pago.toString());
                                 } catch (JSONException e) {
                                     Log.e("Error", "Invalid JSON Object.");
                                 }
                             }
-                            System.out.println(listIdPago);
+                            PagoAdapter productAdapter = new PagoAdapter(listPago, RestService.this);
+                            list.setAdapter(productAdapter);
                         } else {
                             Log.e("WARNING", "The response is empty.");
                         }
